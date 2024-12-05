@@ -45,4 +45,6 @@ int main(int argc, char* argv[]) {
     if (is_safe(line)) count++;
   }
   f.close();
+
+  std::cout << count << "\n";
 }

@@ -6,6 +6,29 @@
 #include <sstream>
 #include <vector>
 
+static inline bool is_safe(const std::string& line);
+
+int main(int argc, char* argv[]) {
+  if (argc != 2) {
+    std::cerr << "You must provide only 1 argument!\n";
+    exit(1);
+  }
+  std::ifstream f(argv[1]);  
+  if (!f.is_open()) {
+    std::cerr << "Error while opening file: " << argv[1] << "\n";
+    exit(1);
+  }
+
+  std::string line;
+  int count = 0;
+  while (std::getline(f, line)) {
+    if (is_safe(line)) count++;
+  }
+  f.close();
+
+  std::cout << count << "\n";
+} // main
+
 static inline bool is_safe(const std::string& line) {
   std::istringstream iss(line);
   
@@ -32,24 +55,3 @@ static inline bool is_safe(const std::string& line) {
 
   return true;
 }
-
-int main(int argc, char* argv[]) {
-  if (argc != 2) {
-    std::cerr << "You must provide only 1 argument!\n";
-    exit(1);
-  }
-  std::ifstream f(argv[1]);  
-  if (!f.is_open()) {
-    std::cerr << "Error while opening file: " << argv[1] << "\n";
-    exit(1);
-  }
-
-  std::string line;
-  int count = 0;
-  while (std::getline(f, line)) {
-    if (is_safe(line)) count++;
-  }
-  f.close();
-
-  std::cout << count << "\n";
-} // main

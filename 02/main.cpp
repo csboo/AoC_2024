@@ -1,28 +1,33 @@
 // DAY 2
-
-
 #include <cassert>
 #include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 static inline bool is_safe(const std::string& line) {
   std::istringstream iss(line);
   
-  int i1, i2;
-  while (iss >> i1 >> i2) {
-    if (i1 > i2) {
-      if (!(i1 + 1 <= i2 && i1 + 3 >= i2)) {
+  int num;
+  std::vector<int> v;
+    while (iss >> num) {
+    v.push_back(num);
+  }
+  if (v.at(0) > v.at(1)) { // if its strictly decreasing
+    for (int i = 1; i < v.size(); i++) {
+      if (!(v.at(i - 1) - 1 >= v.at(i) && v.at(i - 1) - 3 <= v.at(i))) {
         return false;
       }
-    } else if (i1 < i2) {
-      if (!(i1 - 1 >= i2 && i1 - 3 <= i2)) {
-        return false;
-      }
-    } else if (i1 == i2) {
-      return false;
     }
+  } else if (v.at(0) < v.at(1)) { // if its strictly increasing
+    for (int i = 1; i < v.size(); i++) {
+      if (!(v.at(i - 1) + 1 <= v.at(i) && v.at(i - 1) + 3 >= v.at(i))) {
+        return false;
+      }
+    }
+  } else { // if its equal, its not strictly monotonic (and therefore its non-safe)
+    return false;
   }
 
   return true;
@@ -47,4 +52,4 @@ int main(int argc, char* argv[]) {
   f.close();
 
   std::cout << count << "\n";
-}
+} // main

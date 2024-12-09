@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
   auto end = std::chrono::high_resolution_clock::now();
 
 
-  std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  std::cout << (end - start).count();
 } // main
 
 static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {

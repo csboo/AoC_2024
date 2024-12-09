@@ -2,15 +2,18 @@
 #include "../include/read_from_cli.hpp"
 
 #include <cassert>
+#include <chrono>
 #include <cstdio>
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <vector>
 
 static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened = false);
 
 int main(int argc, char* argv[]) {
+  auto start = std::chrono::high_resolution_clock::now();
   std::ifstream f = from_cli(argc, argv);
 
   std::string line;
@@ -29,6 +32,10 @@ int main(int argc, char* argv[]) {
   
   // NOTE answer here
   std::cout << count << "\n";
+  auto end = std::chrono::high_resolution_clock::now();
+
+
+  std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 } // main
 
 static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {

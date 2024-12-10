@@ -33,7 +33,6 @@ int main(int argc, char* argv[]) {
   std::cout << count << "\n";
   auto end = std::chrono::high_resolution_clock::now();
 
-
   std::cout << (end - start).count();
 } // main
 
@@ -51,6 +50,19 @@ static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {
     for (int i = 1; i < v.size(); i++) {
       if (!(v.at(i - 1) - 1 >= v.at(i) && v.at(i - 1) - 3 <= v.at(i))) {
         // std::cerr << "Non-safe level: (vector.at(" << i << ")) -> " << v.at(i) << "\n";
+        if ((i == 1 || i == 2) && !_is_already_dampened) {
+          std::vector<int> copy = v;
+          copy.erase(copy.begin());
+          if (is_safe(copy, true)) {
+            return true;
+          } else {
+            copy = v;
+            copy.erase(copy.begin() + 1);
+            if (is_safe(copy, true)) {
+              return true;
+            }
+          }
+        }
         if ( (i < v.size() - 1 && (v.at(i + 1) < v.at(i - 1)) || i == v.size() - 1 ) && !_is_already_dampened) {
           // std::cerr << "Not yet dampened, deleting: " << *(v.begin() + i) << "\n";
           v.erase(v.begin() + i);
@@ -71,6 +83,19 @@ static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {
     for (int i = 1; i < v.size(); i++) {
       if (!(v.at(i - 1) + 1 <= v.at(i) && v.at(i - 1) + 3 >= v.at(i))) {
         // std::cerr << "Non-safe level: (vector.at(" << i << ")) -> " << v.at(i) << "\n";
+        if ((i == 1 || i == 2) && !_is_already_dampened) {
+          std::vector<int> copy = v;
+          copy.erase(copy.begin());
+          if (is_safe(copy, true)) {
+            return true;
+          } else {
+            copy = v;
+            copy.erase(copy.begin() + 1);
+            if (is_safe(copy, true)) {
+              return true;
+            }
+          }
+        }
         if ( (i < v.size() - 1 && (v.at(i + 1) > v.at(i - 1)) || i == v.size() - 1 ) && !_is_already_dampened) {
           // std::cerr << "Not yet dampened, deleting: " << *(v.begin() + i) << "\n";
           v.erase(v.begin() + i);

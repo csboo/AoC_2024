@@ -1,6 +1,7 @@
 // DAY one
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -45,9 +46,12 @@ static inline void part2(std::priority_queue<int>& q1, std::priority_queue<int>&
 }
 
 int main() {
+  auto start = std::chrono::high_resolution_clock::now();
   std::priority_queue<int> Q1, Q2;
   int N;
   part1(Q1, Q2, N, "in.txt");
   // std::cerr << Q2.size() << " " << Q1.size() << "\n";
   part2(Q1, Q2, N);
-}
+  auto end = std::chrono::high_resolution_clock::now();
+  std::cout << (end-start).count() << "\n";
+} 

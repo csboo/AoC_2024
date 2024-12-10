@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-inline std::ifstream from_cli(const int& argc, char* argv[]) {
+static inline std::ifstream from_cli(const int& argc, char* argv[]) {
   if (argc != 2) {
     std::cerr << "You must provide only 1 argument!\n";
     exit(1);

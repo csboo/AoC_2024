@@ -1,4 +1,6 @@
 // DAY one
+#include "../include/read_from_cli.hpp"
+
 #include <algorithm>
 #include <cassert>
 #include <chrono>
@@ -8,16 +10,7 @@
 #include <queue>
 
 
-static inline void part1(std::priority_queue<int>& q1, std::priority_queue<int>& q2, int& S, const std::string& file) {
-  std::ifstream f(file);
-  assert(f.is_open());
-  int temp;
-  while (f >> temp) {
-    q1.push(temp);
-    f >> temp;
-    q2.push(temp);
-  }
-  f.close();
+static inline void part1(std::priority_queue<int>& q1, std::priority_queue<int>& q2, int& S) {
   int sum = 0;
   assert(q1.size() == 1000);
   S = q1.size();
@@ -45,13 +38,23 @@ static inline void part2(std::priority_queue<int>& q1, std::priority_queue<int>&
   std::cout << sim_sum << "\n";
 }
 
-int main() {
+int main(int argc, char* argv[]) {
   auto start = std::chrono::high_resolution_clock::now();
+  std::ifstream f = from_cli(argc, argv);
+  assert(f.is_open());
   std::priority_queue<int> Q1, Q2;
+  int temp;
+  while (f >> temp) {
+    Q1.push(temp);
+    f >> temp;
+    Q2.push(temp);
+  }
+  f.close();
+
   int N;
-  part1(Q1, Q2, N, "in.txt");
+  part1(Q1, Q2, N);
   // std::cerr << Q2.size() << " " << Q1.size() << "\n";
   part2(Q1, Q2, N);
   auto end = std::chrono::high_resolution_clock::now();
-  std::cout << (end-start).count() << "\n";
+  std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count() << "\n";
 } 

@@ -48,7 +48,7 @@ static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {
   }
   if (v.at(0) > v.at(1)) { // if its strictly decreasing
     for (int i = 1; i < v.size(); i++) {
-      if (!(v.at(i - 1) - 1 >= v.at(i) && v.at(i - 1) - 3 <= v.at(i))) {
+      if (v.at(i - 1) - 1 < v.at(i) || v.at(i - 1) - 3 > v.at(i)) {
         // std::cerr << "Non-safe level: (vector.at(" << i << ")) -> " << v.at(i) << "\n";
         if ((i == 1 || i == 2) && !_is_already_dampened) {
           std::vector<int> copy = v;
@@ -63,7 +63,7 @@ static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {
             }
           }
         }
-        if ( (i < v.size() - 1 && (v.at(i + 1) < v.at(i - 1)) || i == v.size() - 1 ) && !_is_already_dampened) {
+        if ( ((i < v.size() - 1 && (v.at(i + 1) < v.at(i - 1))) || i == v.size() - 1 ) && !_is_already_dampened) {
           // std::cerr << "Not yet dampened, deleting: " << *(v.begin() + i) << "\n";
           v.erase(v.begin() + i);
           // std::cerr << "dampened report: { ";
@@ -81,7 +81,7 @@ static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {
     }
   } else if (v.at(0) < v.at(1)) { // if its strictly increasing
     for (int i = 1; i < v.size(); i++) {
-      if (!(v.at(i - 1) + 1 <= v.at(i) && v.at(i - 1) + 3 >= v.at(i))) {
+      if (v.at(i - 1) + 1 > v.at(i) || v.at(i - 1) + 3 < v.at(i)) {
         // std::cerr << "Non-safe level: (vector.at(" << i << ")) -> " << v.at(i) << "\n";
         if ((i == 1 || i == 2) && !_is_already_dampened) {
           std::vector<int> copy = v;
@@ -96,7 +96,7 @@ static bool is_safe(std::vector<int>& v, const bool& _is_already_dampened) {
             }
           }
         }
-        if ( (i < v.size() - 1 && (v.at(i + 1) > v.at(i - 1)) || i == v.size() - 1 ) && !_is_already_dampened) {
+        if ( ((i < v.size() - 1 && (v.at(i + 1) > v.at(i - 1))) || i == v.size() - 1 ) && !_is_already_dampened) {
           // std::cerr << "Not yet dampened, deleting: " << *(v.begin() + i) << "\n";
           v.erase(v.begin() + i);
           // std::cerr << "dampened report: { ";

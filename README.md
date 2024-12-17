@@ -1,18 +1,19 @@
 # Advent of Code 2024 csboo
 
-# Usage
-## setup
+## Meson usage
 
-- meson setup builddir
+- setup
 
-## build all days
+```meson setup builddir```
 
-- ninja -C builddir all
+- build all days
 
-## build specific day
+```ninja -C builddir all```
 
-- ninja -C builddir number_of_day / "day" + number_of_day 
+- build specific day
 
-## run a built day (or build and run)
+```ninja -C builddir number_of_day / "day" + number_of_day```
 
-- ninja -C builddir run01
+- run a built day (or build and run)
+
+```ninja -C builddir run01```

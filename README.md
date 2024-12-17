@@ -3,16 +3,16 @@
 # Usage
 ## setup
 
-- meson setup build
+- meson setup builddir
 
 ## build all days
 
-- ninja -C build
+- ninja -C builddir all
 
 ## build specific day
 
-- ninja -C build d01
+- ninja -C builddir number_of_day / "day" + number_of_day 
 
-## run a built day
+## run a built day (or build and run)
 
-- ninja -C build run01
+- ninja -C builddir run01

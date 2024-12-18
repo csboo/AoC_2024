@@ -12,8 +12,8 @@
 
 - build specific day
 
-```ninja -C builddir number_of_day / "day" + number_of_day```
+```ninja -C builddir [number_of_day] / "day" + [number_of_day]```
 
 - run a built day (or build and run)
 
-```ninja -C builddir run01```
+```ninja -C builddir [number_of_day]```
